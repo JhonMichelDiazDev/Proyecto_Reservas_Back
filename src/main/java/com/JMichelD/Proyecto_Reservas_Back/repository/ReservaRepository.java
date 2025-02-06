@@ -16,5 +16,5 @@ public interface ReservaRepository extends JpaRepository<Reserva, Long>  {
     
     List<Reserva> findByIdEvento(Long eventoId);
 
-    List<Reserva> findByUsuarioReserva(String usuario);
+    List<Reserva> findByUsuarioUsername(String usuario);
 }

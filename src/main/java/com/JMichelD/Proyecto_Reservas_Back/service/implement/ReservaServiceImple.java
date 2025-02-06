@@ -1,4 +1,3 @@
-// src/main/java/com/tuempresa/proyecto/service/ReservaService.java
 package com.JMichelD.Proyecto_Reservas_Back.service.implement;
 
 import com.JMichelD.Proyecto_Reservas_Back.exception.ResourceNotFoundException;
@@ -23,24 +22,20 @@ public class ReservaServiceImple implements InterReservaService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    // Obtener todas las reservas
     public List<Reserva> getAllReservas() {
         return reservaRepository.findAll();
     }
 
-    // Obtener reservas por usuario
     public List<Reserva> getReservasByUsuario(String usuario) {
-        return reservaRepository.findByUsuarioReserva(usuario);
+        return reservaRepository.findByUsuarioUsername(usuario);
     }
 
-    // Crear una reserva con validación
     @Transactional
     public Reserva createReserva(Reserva reserva) {
-        // Buscar el evento al que se hace la reserva
+
         Evento evento = eventoRepository.findById(reserva.getEvento().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Evento no encontrado con id: " + reserva.getEvento().getId()));
 
-        // Validar si el evento aún tiene capacidad disponible
         int capacidad = evento.getCapacidad();
         int reservasActuales = evento.getReservasActuales();
         if (reservasActuales + reserva.getCantidad() > capacidad) {
@@ -55,21 +50,16 @@ public class ReservaServiceImple implements InterReservaService {
         return reservaRepository.save(reserva);
     }
 
-    // Cancelar una reserva (opcional: restar la cantidad reservada del evento)
     @Transactional
     public void deleteReserva(Long id) {
         Reserva reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Reserva no encontrada con id: " + id));
 
-        // Actualizar el evento restando la cantidad reservada
         Evento evento = reserva.getEvento();
         evento.setReservasActuales(evento.getReservasActuales() - reserva.getCantidad());
         eventoRepository.save(evento);
 
-        // Eliminar la reserva
         reservaRepository.deleteById(id);
     }
 
-    // Actualizar una reserva: se puede implementar según la lógica del negocio
-    // (Esta operación puede ser compleja si se debe ajustar la cantidad en el evento)
 }

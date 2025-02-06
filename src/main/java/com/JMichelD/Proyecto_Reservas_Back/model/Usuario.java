@@ -12,16 +12,25 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UsuarioReserva{
+public class Usuario{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_USUARIO")
-    private Long idUsuario;
+    private Long idusuario;
 
     @Column(nullable = false)
     private String nombre;
 
+    @Column(nullable = false)
+    private String username;
+
     @Column(length = 2000)
     private String descripcion;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String rol = "ROLE_USER";
 }

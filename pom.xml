@@ -75,7 +75,6 @@
         <version>0.11.5</version>
     </dependency>
     
-    <!-- Implementación de JJWT (runtime) -->
     <dependency>
         <groupId>io.jsonwebtoken</groupId>
         <artifactId>jjwt-impl</artifactId>
@@ -83,7 +82,6 @@
         <scope>runtime</scope>
     </dependency>
     
-    <!-- Integración con Jackson para procesamiento de JSON (opcional pero recomendado) -->
     <dependency>
         <groupId>io.jsonwebtoken</groupId>
         <artifactId>jjwt-jackson</artifactId>
@@ -125,6 +123,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
 		</dependency>
 	</dependencies>
 

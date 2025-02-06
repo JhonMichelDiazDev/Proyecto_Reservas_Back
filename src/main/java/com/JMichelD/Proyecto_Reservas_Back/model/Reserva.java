@@ -20,8 +20,8 @@ public class Reserva {
     private Long idReserva;
 
     @ManyToOne(optional = false)  
-    @JoinColumn(name = "ID_USUARIO", nullable = false)  
-    private UsuarioReserva usuario;
+    @JoinColumn(name = "username", nullable = false)  
+    private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_EVENTO", nullable = false)

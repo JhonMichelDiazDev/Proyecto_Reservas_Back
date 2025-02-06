@@ -2,10 +2,6 @@ package com.JMichelD.Proyecto_Reservas_Back.config;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -33,23 +29,16 @@ public class SecurityConfig {
                 config.setAllowedHeaders(List.of("*"));
                 return config;
             }))
-            // Deshabilitar CSRF usando el método recomendado a partir de Spring Security 6.1
             .csrf(AbstractHttpConfigurer::disable)
-            // Configuración de las reglas de autorización:
+
             .authorizeHttpRequests(auth -> auth
-                // Permitir acceso público a endpoints de autenticación
                 .requestMatchers("/api/auth/**").permitAll()
-                // Permitir acceso público a solicitudes GET a endpoints públicos
                 .requestMatchers(HttpMethod.GET, "/api/public/**").permitAll()
-                // Cualquier otro endpoint requerirá autenticación
                 .anyRequest().authenticated()
             )
-            // Configuración del manejo de sesiones: sin mantener sesiones en el servidor
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-        
-        // Agrega el filtro JWT antes del filtro de autenticación de Spring
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
@@ -58,16 +47,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
         return authConfiguration.getAuthenticationManager();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("admin2")
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
     }
 
 }

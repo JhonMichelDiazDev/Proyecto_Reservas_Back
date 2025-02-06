@@ -1,16 +1,18 @@
 version: '3.8'
 services:
-  postgres:
-    image: postgres:14            # Utilizamos la versión 14 de PostgreSQL (puedes ajustar según tus necesidades)
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
     restart: always
     environment:
-      POSTGRES_DB: BD_reservas     # Nombre de la base de datos que se creará
-      POSTGRES_USER: usuario     # Usuario de PostgreSQL
-      POSTGRES_PASSWORD: pswrd1  # Contraseña para el usuario
+      MYSQL_DATABASE: proyecto_base_BD
+      MYSQL_USER: michel
+      MYSQL_PASSWORD: pswrd2
+      MYSQL_ROOT_PASSWORD: rootpassword
     ports:
-      - "5432:5432"                # Expone el puerto 5432 en el host
+      - "3306:3306"
     volumes:
-      - pgdata:/var/lib/postgresql/data  # Almacena los datos en un volumen para persistencia
+      - mysqldata:/var/lib/mysql
 
 volumes:
-  pgdata:
+  mysqldata:

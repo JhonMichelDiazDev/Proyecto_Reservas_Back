@@ -1,4 +1,4 @@
-// src/main/java/com/tuempresa/proyecto/dto/AuthResponse.java
+
 package com.JMichelD.Proyecto_Reservas_Back.auth.model;
 
 import lombok.AllArgsConstructor;
