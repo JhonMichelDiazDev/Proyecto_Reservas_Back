@@ -1,11 +1,12 @@
+version: '3.8'
 services:
   postgres:
     image: postgres:14            # Utilizamos la versión 14 de PostgreSQL (puedes ajustar según tus necesidades)
     restart: always
     environment:
-      POSTGRES_DB: proyecto_reservas_BD     # Nombre de la base de datos que se creará
-      POSTGRES_USER: michel_diaz     # Usuario de PostgreSQL
-      POSTGRES_PASSWORD: proyecto_reservas  # Contraseña para el usuario
+      POSTGRES_DB: BD_reservas     # Nombre de la base de datos que se creará
+      POSTGRES_USER: usuario     # Usuario de PostgreSQL
+      POSTGRES_PASSWORD: pswrd1  # Contraseña para el usuario
     ports:
       - "5432:5432"                # Expone el puerto 5432 en el host
     volumes:
